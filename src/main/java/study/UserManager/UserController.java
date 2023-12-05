@@ -25,8 +25,13 @@ public class UserController {
         userService.addNewUser(user);
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     public void deleteUser(@RequestBody User user){
         userService.deleteUser(user);
+    }
+
+    @PutMapping
+    public void updateUsername(@RequestBody User user){
+        userService.updateUsername(user.getEmail(), user.getUsername());
     }
 }

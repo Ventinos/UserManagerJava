@@ -1,5 +1,6 @@
 package study.UserManager;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -32,5 +33,12 @@ public class UserService {
             throw new IllegalStateException("This user isn't registered!");
         }
         userRepository.delete(user);
+    }
+
+    @Transactional
+    public void updateUsername(String email, String username){
+        //yes, lambda function!
+        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("User not registered!"));
+        user.setUsername(username);
     }
 }
