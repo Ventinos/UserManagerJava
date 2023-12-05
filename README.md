@@ -17,5 +17,6 @@ Now you can test the features in the ```localhost:8080/users``` using https meth
 }
 ```
 (I made my tests using Insomnia, and everything worked fine).
-I'll probably keep working in this to try other dependencies like Spring Boot Authenticator...
+
+I'll probably keep working on this to try other dependencies like Spring Boot Authenticator...
 
