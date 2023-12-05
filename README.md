@@ -10,9 +10,11 @@ User manager made in java SpringBoot using JpaRepository, SpringBoot Web, Postgr
 * With all set, run the UserManagerApplication in your IDE, and check if you've got any ERROR;
 
 Now you can test the features in the ```localhost:8080/users``` using https methods and json objects like this:
-```{
+```
+{
 "email":"test@mail.com",
 "username":"test"
-}```
+}
+```
 (I made my tests using Insomnia, and everything worked properly).
  
