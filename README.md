@@ -16,5 +16,5 @@ Now you can test the features in the ```localhost:8080/users``` using https meth
  "username":"test"
 }
 ```
-(I made my tests using Insomnia, and everything worked properly).
+(I made my tests using Insomnia, and everything worked fine).
  
