@@ -24,4 +24,9 @@ public class UserController {
     public void registerUser(@RequestBody User user){
         userService.addNewUser(user);
     }
+
+    @DeleteMapping()
+    public void deleteUser(@RequestBody User user){
+        userService.deleteUser(user);
+    }
 }

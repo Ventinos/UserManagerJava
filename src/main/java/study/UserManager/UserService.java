@@ -25,4 +25,12 @@ public class UserService {
         }
         userRepository.save(user);
     }
+
+    public void deleteUser(User user) {
+        boolean exists = userRepository.existsByEmail(user.getEmail());
+        if (!exists) {
+            throw new IllegalStateException("This user isn't registered!");
+        }
+        userRepository.delete(user);
+    }
 }
