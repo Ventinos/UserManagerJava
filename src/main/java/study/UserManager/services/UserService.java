@@ -1,8 +1,11 @@
-package study.UserManager;
+package study.UserManager.services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import study.UserManager.User;
+import study.UserManager.repos.UserRepository;
+
 import java.util.List;
 import java.util.Optional;
 

@@ -1,7 +1,9 @@
-package study.UserManager;
+package study.UserManager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import study.UserManager.User;
+import study.UserManager.services.UserService;
 
 import java.util.List;
 
