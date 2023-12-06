@@ -1,5 +1,6 @@
 package study.UserManager.controllers;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import study.UserManager.User;
@@ -8,15 +9,12 @@ import study.UserManager.services.UserService;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(path = "users")
 public class UserController {
-    private final UserService userService;
-
     @Autowired
-    public UserController(UserService userService){
-        this.userService = userService;
-    }
-
+    private final UserService userService;
+    
     @GetMapping
     public List<User> getUsers(){
         return userService.getUsers();
