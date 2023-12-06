@@ -10,12 +10,12 @@ import study.UserManager.repos.UserRepository;
 
 @AllArgsConstructor
 @Service
-public class AuthorizationService implements UserDetailsService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
     private final UserRepository repository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findUserByUsername(username);
+        return repository.getUserDetailsByEmail(username);
     }
 }

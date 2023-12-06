@@ -1,16 +1,20 @@
 package study.UserManager.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.UserManager.User;
 import study.UserManager.services.UserService;
 
 import java.util.List;
 
-@RestController
+
 @AllArgsConstructor
-@RequestMapping(path = "users")
+@Getter
+@RestController
+@RequestMapping("users")
 public class UserController {
     @Autowired
     private final UserService userService;
@@ -20,18 +24,19 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @PostMapping
-    public void registerUser(@RequestBody User user){
-        userService.addNewUser(user);
-    }
-
     @DeleteMapping
-    public void deleteUser(@RequestBody User user){
-        userService.deleteUser(user);
+    public ResponseEntity deleteUser(@RequestBody User user){
+        return userService.deleteUser(user);
     }
 
     @PutMapping
-    public void updateUsername(@RequestBody User user){
-        userService.updateUsername(user.getEmail(), user.getUsername());
+    public ResponseEntity updateUsername(@RequestBody User user){
+        return userService.updateUsername(user.getEmail(), user.getUsername());
     }
+
+//    @PutMapping
+//    public ResponseEntity updateRole(@RequestBody User user){
+//        return userService.updateRole(user.getEmail(), user.getRole().toString());
+//    }
+
 }
