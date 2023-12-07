@@ -5,6 +5,10 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import study.UserManager.DTOs.UpdateEmailDTO;
+import study.UserManager.DTOs.UpdatePasswordDTO;
+import study.UserManager.DTOs.UpdateRoleDTO;
+import study.UserManager.DTOs.UpdateUsernameDTO;
 import study.UserManager.User;
 import study.UserManager.services.UserService;
 
@@ -24,19 +28,31 @@ public class UserController {
         return userService.getUsers();
     }
 
+    @PostMapping
+    public ResponseEntity postUser(@RequestBody User user) { return userService.addNewUser(user); }
+
     @DeleteMapping
-    public ResponseEntity deleteUser(@RequestBody User user){
-        return userService.deleteUser(user);
+    public ResponseEntity deleteUser(@RequestBody String email){
+        return userService.deleteUser(email);
     }
 
-    @PutMapping
-    public ResponseEntity updateUsername(@RequestBody User user){
-        return userService.updateUsername(user.getEmail(), user.getUsername());
+    @PutMapping("update/username")
+    public ResponseEntity updateUsername(@RequestBody UpdateUsernameDTO data){
+        return userService.updateUsername(data.email(),data.newUsername());
     }
 
-//    @PutMapping
-//    public ResponseEntity updateRole(@RequestBody User user){
-//        return userService.updateRole(user.getEmail(), user.getRole().toString());
-//    }
+    @PutMapping("update/role")
+    public ResponseEntity updateRole(@RequestBody UpdateRoleDTO data){
+        return userService.updateRole(data.email(), data.newRole());
+    }
 
+    @PutMapping("update/password")
+    public ResponseEntity updatePassword(@RequestBody UpdatePasswordDTO data){
+        return userService.updatePassword(data.email(), data.newPassword());
+    }
+
+    @PutMapping("update/email")
+    public ResponseEntity updateEmail(@RequestBody UpdateEmailDTO data){
+        return userService.updateEmail(data.oldEmail(),data.newEmail());
+    }
 }

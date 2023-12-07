@@ -34,12 +34,13 @@ public class UserService {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity deleteUser(User user) {
-        boolean exists = userRepository.existsByEmail(user.getEmail());
+    public ResponseEntity deleteUser(String email) {
+        boolean exists = userRepository.existsByEmail(email);
         if (!exists) {
             return ResponseEntity.badRequest().build();
         }
-        userRepository.delete(user);
+        userRepository.delete(userRepository.getUserByEmail(email));
+        System.out.println(userRepository.getUserByEmail(email));
         return ResponseEntity.ok().build();
     }
 
@@ -47,7 +48,7 @@ public class UserService {
     public ResponseEntity updateUsername(String email, String username){
         User user = userRepository.findUserByEmail(email).orElse(null);
 
-        if (user==null)
+        if ( user == null )
             return ResponseEntity.badRequest().build();
 
         user.setUsername(username);
@@ -58,10 +59,34 @@ public class UserService {
     public ResponseEntity updateRole(String email, String role){
         User user = userRepository.findUserByEmail(email).orElse(null);
 
-        if (user==null)
+        if ( user == null )
             return ResponseEntity.badRequest().build();
 
         user.setRole(UserRole.valueOf(role.toUpperCase()));
+        return ResponseEntity.ok().build();
+    }
+
+    @Transactional
+    public ResponseEntity updatePassword(String email, String password){
+        User user = userRepository.findUserByEmail(email).orElse(null);
+
+        if( user == null )
+            return ResponseEntity.badRequest().build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+        return ResponseEntity.ok().build();
+    }
+
+    @Transactional
+    public ResponseEntity updateEmail(String oldEmail, String newEmail){
+        User user = userRepository.findUserByEmail(oldEmail).orElse(null);
+        boolean exists = userRepository.existsByEmail(newEmail);
+
+        if( user == null || exists)
+            return ResponseEntity.badRequest().build();
+
+        user.setEmail(newEmail);
         return ResponseEntity.ok().build();
     }
 }
