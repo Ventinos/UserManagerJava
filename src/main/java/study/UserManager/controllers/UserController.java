@@ -5,7 +5,6 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import study.UserManager.DTOs.UpdateEmailDTO;
 import study.UserManager.DTOs.UpdatePasswordDTO;
 import study.UserManager.DTOs.UpdateRoleDTO;
 import study.UserManager.DTOs.UpdateUsernameDTO;
@@ -32,8 +31,8 @@ public class UserController {
     public ResponseEntity postUser(@RequestBody User user) { return userService.addNewUser(user); }
 
     @DeleteMapping
-    public ResponseEntity deleteUser(@RequestBody String email){
-        return userService.deleteUser(email);
+    public ResponseEntity deleteUser(@RequestBody User user){
+        return userService.deleteUser(user);
     }
 
     @PutMapping("update/username")
@@ -49,10 +48,5 @@ public class UserController {
     @PutMapping("update/password")
     public ResponseEntity updatePassword(@RequestBody UpdatePasswordDTO data){
         return userService.updatePassword(data.email(), data.newPassword());
-    }
-
-    @PutMapping("update/email")
-    public ResponseEntity updateEmail(@RequestBody UpdateEmailDTO data){
-        return userService.updateEmail(data.oldEmail(),data.newEmail());
     }
 }

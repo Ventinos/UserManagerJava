@@ -34,13 +34,13 @@ public class UserService {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity deleteUser(String email) {
+    public ResponseEntity deleteUser(User user) {
+        String email = user.getEmail();
         boolean exists = userRepository.existsByEmail(email);
         if (!exists) {
             return ResponseEntity.badRequest().build();
         }
-        userRepository.delete(userRepository.getUserByEmail(email));
-        System.out.println(userRepository.getUserByEmail(email));
+        userRepository.delete(user);
         return ResponseEntity.ok().build();
     }
 
@@ -75,18 +75,6 @@ public class UserService {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
-        return ResponseEntity.ok().build();
-    }
-
-    @Transactional
-    public ResponseEntity updateEmail(String oldEmail, String newEmail){
-        User user = userRepository.findUserByEmail(oldEmail).orElse(null);
-        boolean exists = userRepository.existsByEmail(newEmail);
-
-        if( user == null || exists)
-            return ResponseEntity.badRequest().build();
-
-        user.setEmail(newEmail);
         return ResponseEntity.ok().build();
     }
 }
